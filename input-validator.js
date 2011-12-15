@@ -29,4 +29,5 @@ InputValidator.prototype.isMoney = function(str){
 
 InputValidator.prototype.isCreditCardNumber = function(str){
    var reg = /^3(?:[47]\d([ -]?)\d{4}(?:\1\d{4}){2}|0[0-5]\d{11}|[68]\d{12})$|^4(?:\d\d\d)?([ -]?)\d{4}(?:\2\d{4}){2}$|^6011([ -]?)\d{4}(?:\3\d{4}){2}$|^5[1-5]\d\d([ -]?)\d{4}(?:\4\d{4}){2}$|^2014\d{11}$|^2149\d{11}$|^2131\d{11}$|^1800\d{11}$|^3\d{15}$/;
+   return reg.test(str); /* returns true/false */
 }
