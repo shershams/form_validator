@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Input Validator Test</title>
+        <script type='text/javascript' src='input-validator.js'></script>
+        <script type='text/javascript'>
+        var validator = new InputValidator();
+        
+        function testEmail(){
+            var str = document.getElementById('input').value;
+            alert(validator.isEmail(str));
+        }
+        function testPhone(){
+            var str = document.getElementById('input').value;
+            alert(validator.isPhone(str));
+        }
+        function testWebsite(){
+            var str = document.getElementById('input').value;
+            alert(validator.isWebsite(str));
+        }
+        function testDate(){
+            var str = document.getElementById('input').value;
+            alert(validator.isDate(str));
+        }
+        function testMoney(){
+            var str = document.getElementById('input').value;
+            alert(validator.isMoney(str));
+        }
+        </script>
+    </head>
+    
+    <body>
+        <label>Test Input:</label>
+        <input type='text' id='input'/><br/><br/>
+        
+        <button onclick='testEmail();'>Test Email</button>
+        <button onclick='testPhone();'>Test Phone Number</button>
+        <button onclick='testWebsite();'>Test Website</button>
+        <button onclick='testDate();'>Test Date</button>
+        <button onclick='testMoney();'>Test Money</button>
+    </body>
+</html>
