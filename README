@@ -1,0 +1,5 @@
+By Sherzod Kutfiddinov.
+
+Currently features validation for email, US phone numbers, websites/links, dates, and money inputs.
+
+Please send more validation ideas to contact@sherzod.me and I will implement them asap.
