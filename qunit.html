@@ -1,0 +1,209 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>InputValidator QUnit Testing</title>
+        <script type='text/javascript' src='http://code.jquery.com/jquery-latest.js'></script>
+        <link rel='stylesheet' href='qunit.css' type='text/css'/>
+        <script type='text/javascript' src='http://github.com/jquery/qunit/raw/master/qunit/qunit.js'></script>
+        <script type='text/javascript' src='input-validator.js'></script>
+        
+        <script type='text/javascript'>
+            $(document).ready(function(){
+                test('Making sure that QUnit is working.', function(){
+                    
+                    ok(true, "This should be valid.");
+                    
+                });
+                
+                test('Instantiation.', function(){
+                    
+                    ok(new InputValidator(), "Basic instantiation.");
+                    ok(new InputValidator("Some parameters."), "Instantiation with parameters. Currently, parameters are not being used.");
+                    
+                });
+                
+                var v = new InputValidator();
+                var sample = new Array();
+                
+                /* PHONE NUMBER VALIDATION TESTING */
+                test('Phone number validation', function(){
+                    
+                    sample = [
+                              '+12345678901',
+                              '+1 234 567 89 01',
+                              '+1(234)567-8901',
+                              '(234)567-8901',
+                              '234-567-8901',
+                              '234-567-89-01',
+                              '2345678901'
+                              ];
+                    
+                    for(var i = 0; i < sample.length; i++){
+                        ok(v.isPhone(sample[i]), "Testing for '"+sample[i]+"'. Should be valid.");
+                    }
+                    
+                    sample = [
+                              '',
+                              'abcdefghijkl',
+                              '123',
+                              '12345678901234567890'
+                              ];
+                    
+                    for(var i = 0; i < sample.length; i++){
+                        ok(!v.isPhone(sample[i]), "Testing for '"+sample[i]+"'. This is an invalid entry.");
+                    }
+                    
+                });
+                
+                /* EMAIL VALIDATION TESTING */
+                test('Email validation', function(){
+                    
+                    sample = [
+                              'contact@sherzod.me',
+                              'reallylongbutpossible@email.com',
+                              '4letter@domain.mobi',
+                              '123@asd.com'
+                              ];
+                    
+                    for(var i = 0; i < sample.length; i++){
+                        ok(v.isEmail(sample[i]), "Testing for '"+sample[i]+"'. Should be valid.");
+                    }
+                    
+                    sample = [
+                              '',
+                              'just a sample string',
+                              'no spaces @ allowed.com',
+                              'toolong@domain.extension'
+                              ];
+                    
+                    for(var i = 0; i < sample.length; i++){
+                        ok(!v.isEmail(sample[i]), "Testing for '"+sample[i]+"'. This is an invalid entry.");
+                    }
+                    
+                });
+                
+                /* WEBSITE / LINK VALIDATION TESTING */
+                test('Website / Link validation', function(){
+                    
+                    sample = [
+                              'http://www.sherzod.me',
+                              'https://www.sherzod.me',
+                              'http://sherzod.me',
+                              'https://sherzod.me',
+                              'http://sherzod.me/index.php',
+                              'http://sherzod.me/index.php?with=parameters',
+                              ];
+                    
+                    for(var i = 0; i < sample.length; i++){
+                        ok(v.isWebsite(sample[i]), "Testing for '"+sample[i]+"'. Should be valid.");
+                    }
+                    
+                    sample = [
+                              '',
+                              'www.sherzod.me',
+                              'sherzod.me',
+                              'some random string',
+                              'http://www. no website with spaces .com'
+                              ];
+                    
+                    for(var i = 0; i < sample.length; i++){
+                        ok(!v.isWebsite(sample[i]), "Testing for '"+sample[i]+"'. This is an invalid entry.");
+                    }
+                    
+                });
+                
+                /* DATE VALIDATION TESTING */
+                test('Date validation', function(){
+                    
+                    sample = [
+                              '12/12/2012',
+                              '12-12-2012',
+                              '12/12/12',
+                              '12-12-12',
+                              '1212',
+                              '12122012',
+                              '12-12',
+                              '12/12',
+                              '1/1/2012',
+                              '1/1/12',
+                              '12/12/123'
+                              ];
+                    
+                    for(var i = 0; i < sample.length; i++){
+                        ok(v.isDate(sample[i]), "Testing for '"+sample[i]+"'. Should be valid.");
+                    }
+                    
+                    sample = [
+                              '',
+                              '12/12/12/12',
+                              'Hello World!'
+                              ];
+                    
+                    for(var i = 0; i < sample.length; i++){
+                        ok(!v.isDate(sample[i]), "Testing for '"+sample[i]+"'. This is an invalid entry.");
+                    }
+                    
+                });
+                
+                /* MONEY VALIDATION TESTING */
+                test('Money validation', function(){
+                    
+                    sample = [
+                              '$100',
+                              '$100.00',
+                              '100',
+                              '100.00'
+                              ];
+                    
+                    for(var i = 0; i < sample.length; i++){
+                        ok(v.isMoney(sample[i]), "Testing for '"+sample[i]+"'. Should be valid.");
+                    }
+                    
+                    sample = [
+                              '',
+                              '100.000'
+                              ];
+                    
+                    for(var i = 0; i < sample.length; i++){
+                        ok(!v.isMoney(sample[i]), "Testing for '"+sample[i]+"'. This is an invalid entry.");
+                    }
+                    
+                });
+                
+                /* CREDIT CARD NUMBER VALIDATION TESTING */
+                test('Credit Card Number validation', function(){
+                    
+                    sample = [
+                              '341-1111-1111-1111',
+                              '5431-1111-1111-1111',
+                              '30569309025904'
+                              ];
+                    
+                    for(var i = 0; i < sample.length; i++){
+                        ok(v.isCreditCardNumber(sample[i]), "Testing for '"+sample[i]+"'. Should be valid.");
+                    }
+                    
+                    sample = [
+                              '',
+                              '30-5693-0902-5904',
+                              '5631-1111-1111-1111',
+                              '31169309025904'
+                              ];
+                    
+                    for(var i = 0; i < sample.length; i++){
+                        ok(!v.isCreditCardNumber(sample[i]), "Testing for '"+sample[i]+"'. This is an invalid entry.");
+                    }
+                    
+                });
+            });
+        </script>
+    </head>
+    
+    <body>
+        <h1 id='qunit-header'>InputValidator Class QUnit Testing</h1>
+        <h2 id='qunit-banner'></h2>
+        <h2 id='qunit-userAgent'></h2>
+        <ol id='qunit-tests'></ol>
+        <div id='qunit-fixture'></div>
+    </body>
+</html>
